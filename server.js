@@ -31,7 +31,6 @@ function doesItExist(word){
 }
 
 app.route('/buzzwords')
-
 .get ((req, res)=>{
   let words = buzzWordArray.map((element)=>{
     return element.buzzWord;
@@ -85,8 +84,6 @@ app.route('/reset')
   newScore = 0;
   res.json({'succes':true});
 });
-
-
 
 const server =  app.listen(PORT, ()=> {
   console.log(`Server started on ${PORT}`);
