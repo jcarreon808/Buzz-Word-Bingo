@@ -67,8 +67,16 @@ app.route('/buzzwords')
     res.json({'sucess':false});
   }
 })
-.delete((req, res)=>{
 
+.delete((req, res)=>{
+  if(doesItExist(req.body.buzzWord)){
+    buzzWordArray = buzzWordArray.filter((element)=>{
+      return element.buzzWord !== req.body.buzzWord;
+    });
+    res.json({'sucess':true});
+  }else{
+    res.json({'sucess':false});
+  }
 })
 
 
