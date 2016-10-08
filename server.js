@@ -8,6 +8,7 @@ app.use(bodyParser.urlencoded({extended : true}));
 
 
 let buzzWordArray = [];
+let newScore = 0;
 
 function createNewBuzzWord (buzzWord, points){
   let buzzWordTemplate = {
@@ -20,13 +21,24 @@ function createNewBuzzWord (buzzWord, points){
 
 }
 
+function doesItExist(word){
+  console.log('array',buzzWordArray);
+  console.log('word passed through',word);
+  return buzzWordArray.some((element)=>{
+    return element.buzzWord === word;
+  });
+
+}
+
 app.route('/buzzwords')
+
 .get ((req, res)=>{
   let words = buzzWordArray.map((element)=>{
     return element.buzzWord;
   });
   res.json(words);
 })
+
 .post((req, res)=>{
 
   let newWord = buzzWordArray.every((element)=>{
@@ -39,7 +51,25 @@ app.route('/buzzwords')
   } else {
     res.json({'sucess':false});
   }
-});
+})
+
+.put((req,res)=>{
+  if(doesItExist(req.body.buzzWord)){
+    buzzWordArray = buzzWordArray.map((element)=>{
+      if(element.buzzWord === req.body.buzzWord){
+       element.heard = true;
+       newScore += parseFloat(element.points);
+      }
+      return element;
+    });
+    res.json({'sucess':true, 'newScore':newScore});
+  }else{
+    res.json({'sucess':false});
+  }
+})
+.delete((req, res)=>{
+
+})
 
 
 
