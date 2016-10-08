@@ -77,7 +77,14 @@ app.route('/buzzwords')
   }else{
     res.json({'sucess':false});
   }
-})
+});
+
+app.route('/reset')
+.post((req,res)=>{
+  buzzWordArray =[];
+  newScore = 0;
+  res.json({'succes':true});
+});
 
 
 
